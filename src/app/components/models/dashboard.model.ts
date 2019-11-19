@@ -1,10 +1,11 @@
 export interface DashboardData {
   id: number;
-  deviceName: string;
+  deviceName?: string;
   ethernets: Ethernet[];
   general: DeviceInfo;
   gps: Gps;
   time: Time;
+  showDetail?: boolean;
 }
 
 export interface Ethernet {
