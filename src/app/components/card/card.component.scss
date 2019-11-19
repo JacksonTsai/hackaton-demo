@@ -1,0 +1,29 @@
+.card{
+  width: 100%;
+  // background-color: #2a2a35;
+  background-color: #222B45;
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+  // box-shadow: 0 1px 10px #0f0f0f;
+  &__header{
+    position: relative;
+    box-sizing: border-box;
+    // border-bottom: 1px solid #000;
+    border-bottom: 1px solid #151a30;
+    height: 57px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    // &::after{
+    //   position: absolute;
+    //   bottom: -0.2px;
+    //   left: 0;
+    //   width: 100%;
+    //   content:'';
+    //   border-bottom: 1px solid #606060;
+    // }
+  }
+  &__info{
+    padding: 16px;
+  }
+}
