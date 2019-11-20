@@ -1,17 +1,18 @@
 export interface DashboardData {
-  id: number;
+  id?: number;
   deviceName?: string;
   ethernets: Ethernet[];
   general: DeviceInfo;
-  gps: Gps;
+  gps?: Gps;
   time: Time;
   showDetail?: boolean;
+  connectionStatus: string;
 }
 
 export interface Ethernet {
   name: string;
   enableDhcp: boolean;
-  id: number;
+  // id?: number;
   wan: boolean;
   mac: string;
   ip?: string;
@@ -33,7 +34,7 @@ export interface EthernetState {
 }
 
 export interface Gps {
-  id: number;
+  // id: number;
   type: string;
   mode: string;
   interface: string;
@@ -47,8 +48,8 @@ export interface GpsState {
 }
 
 export interface Coordinate {
-  lat: number;
-  lng: number;
+  // lat: number;
+  // lng: number;
 }
 
 export interface GpsCapabilities {
@@ -56,7 +57,7 @@ export interface GpsCapabilities {
 }
 
 export interface DeviceInfo {
-  id: number;
+  // id: number;
   cpu: string;
   deviceType: string;
 
@@ -66,14 +67,17 @@ export interface DeviceInfo {
   serialNumber: string;
   // ip: number;
   lastBootTime: string;
-  memorySize: number;
+  lastRebootTime?: string;
+  // memorySize: number;
   // macAddress: string;
   // currentWan: string;
   // coordinates: Coordinates;
   description: string;
+  // rebootId: string;
   hostName: string;
   disk: Disk[];
   type: string;
+
 }
 
 export interface Disk {
@@ -81,7 +85,7 @@ export interface Disk {
   mount: string;
   name: string;
   tags: Tags;
-  total: number;
+  // total: number;
 }
 
 interface Tags {
@@ -91,7 +95,7 @@ interface Tags {
 }
 
 export interface Time {
-  id: number;
+  // id: number;
   time?: string;
   type: string;
   timezone: string;
@@ -101,5 +105,5 @@ export interface Time {
 export interface NTP {
   enable: boolean;
   server: string;
-  interval: number;
+  // interval: number;
 }

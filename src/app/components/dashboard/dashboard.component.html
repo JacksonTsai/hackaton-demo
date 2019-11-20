@@ -1,7 +1,7 @@
 <div class="summary-data">
   <app-card>
     <div card-header>Device List</div>
-    <div card-info *ngIf="deviceInfo$ | async as vm">
+    <div card-info *ngIf="deviceInfo as vm">
       <section>
         <div class="tbl-header">
           <table cellpadding="0" cellspacing="0" border="0">
@@ -24,12 +24,13 @@
           <table cellpadding="0" cellspacing="0" border="0">
             <tbody *ngFor="let item of vm">
               <tr>
-                <td (click)="item.showDetail = !item.showDetail">
-                  {{ item.id }}
+                <td (click)="deviceInfoById(item.id)">
+
+                  <p class="arrow-icon" [ngClass]="{'open': item.showDetail}">{{ item.id }}</p>
                 </td>
                 <td>{{ item.deviceName }}</td>
                 <td>{{ item.general.hostName }}</td>
-                <td>{{ item.ethernets[0].status }}</td>
+                <td>{{ item.connectionStatus }}</td>
                 <td>{{ item.general.modelName }}</td>
                 <td>{{ item.general.firmwareVersion }}</td>
                 <td>{{ item.general.thingsproVersion }}</td>
@@ -37,50 +38,81 @@
                 <td>{{ item.ethernets[0].ip }}</td>
               </tr>
               <tr *ngIf="item.showDetail">
-                <td  colspan="9">
+                <td colspan="9">
                   <app-card [header]="false">
-
-                    <div class="device"
-                      card-info
-                      *ngIf="getDeviceInfoById$(item.id) | async as deviceItem"
-                    >
+                    <div class="device" card-info >
                       <div>
                         <div class="device-item">
                           <label>Serial No.</label>
-                          <p>{{ deviceItem.general.serialNumber }}</p>
+                          <p>{{ item.general.serialNumber }}</p>
                         </div>
                         <div class="device-item">
                           <label>Last Boot Time</label>
-                          <p>{{ deviceItem.general.lastBootTime }}</p>
+                          <p>
+                            {{
+                              item.general.lastBootTime | date: "medium"
+                            }}
+                          </p>
                         </div>
                       </div>
-                      <div >
+                      <div>
                         <div class="device-item">
-                          <label>NTP Enable</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
+                          <fieldset>
+                            <legend>NTP</legend>
+                            <mat-slide-toggle
+                              [formControl]="ntpEnable"
+                              color="primary"
+                            >
+                              {{ ntpEnableCtrl.value ? "Enable" : "Disable" }}
+                            </mat-slide-toggle>
+                            <br />
+                            <mat-form-field floatLabel="always">
+                              <input
+                                [formControl]="ntpServer"
+                                matInput
+                                placeholder="NTP Server"
+                              />
+                            </mat-form-field>
+                            <br />
+                            <mat-form-field floatLabel="always">
+                              <input
+                                [formControl]="ntpInterval"
+                                matInput
+                                placeholder="NTP Interval"
+                              />
+                            </mat-form-field>
+                            <mat-form-field floatLabel="always">
+                              <input
+                                [formControl]="ntpTimeZone"
+                                matInput
+                                placeholder="Time Zone"
+                              />
+                            </mat-form-field>
+                          </fieldset>
                         </div>
-                        <div class="device-item">
-                          <label>NTP Server</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
+                      </div>
+                      <div>
+                        <div class="device-item ">
+                          <fieldset>
+                            <legend>Host Name</legend>
+                            <mat-form-field floatLabel="always">
+                              <input [formControl]="hostName" matInput />
+                            </mat-form-field>
+                          </fieldset>
+                          <fieldset>
+                            <legend>Description</legend>
+                            <mat-form-field floatLabel="always">
+                              <input [formControl]="description" matInput />
+                            </mat-form-field>
+                          </fieldset>
                         </div>
-
-                        <div class="device-item">
-                          <label>NTP Interval</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
-                        </div>
-
-                        <div class="device-item">
-                          <label>Time Zone</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
-                        </div>
-                        <div class="device-item">
-                          <label>Host Name</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
-                        </div>
-                        <div class="device-item">
-                          <label>Description</label>
-                          <!-- <p>{{ deviceItem.general.lastBootTime }}</p> -->
-                        </div>
+                        <button
+                          class="submit"
+                          (click)="submit(item.deviceName)"
+                          mat-stroked-button
+                        >
+                          Submit
+                        </button>
                       </div>
                     </div>
                   </app-card>

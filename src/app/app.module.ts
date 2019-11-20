@@ -8,6 +8,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { DetailComponent } from './components/detail/detail.component';
 import { CardComponent } from './components/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,10 +25,14 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     MatSliderModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [],
   entryComponents: [DetailComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
